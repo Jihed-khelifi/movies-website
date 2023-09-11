@@ -390,6 +390,7 @@
     z-index: 4;
   }
   
+  
   .header.active {
     background: var(--eerie-black);
     padding-block: 20px;
@@ -1044,7 +1045,7 @@
   .details-actions .btn-primary:is(:hover, :focus) { background: var(--citrine); }
   
   .download-btn {
-    max-width: max-content;
+    // max-width: max-content;
     background: var(--citrine);
     color: var(--rich-black-fogra-29);
     font-size: var(--fs-11);
@@ -1052,13 +1053,16 @@
     text-transform: uppercase;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 20px 35px;
+    // gap: 10px;
+    // padding: 20px 35px;
     letter-spacing: 5px;
     border-radius: 6px;
   }
   
-  .download-btn ion-icon { font-size: 16px; }
+  .download-btn:hover  { 
+    color: var(--citrine);
+    background: var(--rich-black-fogra-29);
+   }
   
   
   
@@ -1472,11 +1476,7 @@
     .movie-detail-banner,
     .details-actions { margin: 0; }
   
-    .download-btn {
-      position: absolute;
-      left: 15px;
-      bottom: -80px;
-    }
+   
   
   }
   
@@ -1581,18 +1581,6 @@
   
     .detail-title { --fs-1: 60px; }
   
-    .download-btn {
-      left: auto;
-      right: 15px;
-      bottom: 0;
-      transform: rotate(0.25turn) translateY(100%);
-      transform-origin: bottom right;
-      padding: 40px 50px;
-    }
   
-    .download-btn ion-icon {
-      font-size: 30px;
-      transform: rotate(-0.25turn);
-    }
   
   }

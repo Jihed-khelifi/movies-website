@@ -16,10 +16,22 @@ const router = createRouter({
       meta: { label: 'Dashboard' },
     },
     {
-      path: '/:pathMatch(.*)*',
-      redirect: { name: 'FIRSTLOAD' },
-      meta: { label: 'Chargement' },
+      path: `/login`,
+      name: `Movies/Login`,
+      component: () => import('@views/Login.vue'),
+      meta: { label: 'Login' },
     },
+    {
+      path: `/movie`,
+      name: `Movie`,
+      component: () => import('@components/Movie-Detail.vue'),
+      meta: { label: 'Movie' },
+    },
+    // {
+    //   path: '/:pathMatch(.*)*',
+    //   redirect: { name: 'FIRSTLOAD' },
+    //   meta: { label: 'Chargement' },
+    // },
   ],
 });
 

@@ -26,8 +26,9 @@
             <option value="tu">TU</option>
           </select>
         </div> -->
-
-        <button class="btn btn-primary">Sign in</button>
+        <el-link href="/login">
+          <button class="btn btn-primary">Sign in</button>
+        </el-link>
       </div>
 
       <button class="menu-open-btn" data-menu-open-btn>
@@ -47,36 +48,51 @@
           </button>
 
         </div>
-       
+
 
         <ul class="navbar-list">
 
           <li>
-            <a href="./index.html" class="navbar-link">Home</a>
+            <el-link href="/" class="no-underline">
+              <a class="navbar-link">Home</a>
+            </el-link>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Movies</a>
+            <el-link>
+              <a href="#" class="navbar-link">Movies</a>
+            </el-link>
           </li>
 
 
           <li>
-            <a href="#" class="navbar-link">Tv Series</a>
+            <el-link>
+              <a href="#" class="navbar-link">Tv Series</a>
+            </el-link>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">People</a>
+            <el-link>
+              <a href="#" class="navbar-link">People</a>
+            </el-link>
           </li>
 
         </ul>
       </nav>
     </div>
   </header>
-    <div v-loading="!test">
-      <router-view v-if="route.name !== 'FIRSTLOAD'" v-slot="{ Component }" class="overflow-y">
-        <component :is="Component" />
-      </router-view>
+  <div v-loading="!test">
+    <router-view v-if="route.name !== 'FIRSTLOAD'" v-slot="{ Component }" class="overflow-y">
+      <component :is="Component" />
+    </router-view>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p class="copyright">
+        &copy; 2023 <a href="#">Ret3i</a>. All Rights Reserved
+      </p>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
