@@ -3,40 +3,40 @@ import { createRouter, createWebHistory } from 'vue-router';
 const router = createRouter({
   history: createWebHistory(`${import.meta.env.BASE_URL}`),
   routes: [
-    // {
-    //   path: '',
-    //   name: 'FIRSTLOAD',
-    //   component: () => import('../App.vue'),
-    //   meta: { label: 'Chargement' },
-    // },
     {
       path: `/`,
-      name: `Movies/Dashboard`,
-      component: () => import('@views/Dashboard.vue'),
-      meta: { label: 'Dashboard' },
+      name: `Home page`,
+      component: () => import('@views/Home.vue'),
+      meta: { label: 'Home' },
     },
     {
       path: `/login`,
-      name: `Movies/Login`,
+      name: `Login page`,
       component: () => import('@views/Login.vue'),
-      meta: { label: 'Login' },
+      meta: { label: 'Sign in' },
     },
     {
-      path: `/movie`,
+      path: `/register`,
+      name: `Register page`,
+      component: () => import('@views/Register.vue'),
+      meta: { label: 'Join us' },
+    },
+    {
+      path: `/movie/:id`,
       name: `Movie`,
-      component: () => import('@components/Movie-Detail.vue'),
+      component: () => import('@components/MovieDetails.vue'),
       meta: { label: 'Movie' },
     },
-    // {
-    //   path: '/:pathMatch(.*)*',
-    //   redirect: { name: 'FIRSTLOAD' },
-    //   meta: { label: 'Chargement' },
-    // },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: { name: 'FIRSTLOAD' },
+      meta: { label: 'Chargement' },
+    },
   ],
 });
 
 router.beforeEach((to, _, next) => {
-  document.title = `${to.meta.label} • Movies`;
+  document.title = `${to.meta.label}`;
   next();
 });
 
