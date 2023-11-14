@@ -1,14 +1,14 @@
 <template>
-    <el-form ref="formRef" :model="formData" :rules="rules" class="mt-44 p-5 rounded-md"
-        label-position="top" hide-required-area>
+    <el-form ref="formRef" :model="formData" :rules="rules" class="mt-44 p-5 rounded-md" label-position="top"
+        hide-required-area size="large">
         <h1 class="text-slate-50 text-2xl text-center">Create an account</h1>
         <div class="flex space-x-3 mt-8">
             <el-form-item label="Firstname" prop="firstname" class="flex-1">
-                <el-input v-model="formData.firstname" name="given-name" autocomplete="on" maxlength="38" clearable
+                <el-input v-model="formData.firstname" name="given-name" autocomplete="on"  clearable
                     size="large" show-word-limit />
             </el-form-item>
             <el-form-item label="Lastname" prop="lastname" class="flex-1" style="--el-tag-bg-color: red">
-                <el-input v-model="formData.lastname" name="family-name" autocomplete="on" maxlength="38" clearable
+                <el-input v-model="formData.lastname" name="family-name" autocomplete="on"  clearable
                     show-word-limit size="large" />
             </el-form-item>
         </div>
@@ -21,14 +21,15 @@
         </el-form-item>
 
         <el-form-item label="E-mail" prop="email">
-            <el-input v-model="formData.email" name="email" autocomplete="on" maxlength="100" clearable show-word-limit size="large" />
+            <el-input v-model="formData.email" name="email" autocomplete="on"  clearable show-word-limit
+                size="large" />
         </el-form-item>
         <!-- <el-form-item label="Téléphone portable" prop="phone">
-            <el-input v-model="formData.phone" name="tel" autocomplete="on" maxlength="20" clearable show-word-limit />
+            <el-input v-model="formData.phone" name="tel" autocomplete="on"  clearable show-word-limit />
         </el-form-item> -->
         <el-form-item label="Password" prop="password">
             <el-input v-model="formData.password" name="new-password" autocomplete="on" show-password clearable
-                show-word-limit  size="large"/>
+                show-word-limit size="large" />
         </el-form-item>
         <el-form-item class="pt-2.5">
             <!-- <el-checkbox v-model="formData.tos">

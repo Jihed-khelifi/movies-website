@@ -14,10 +14,8 @@
 
 <script setup lang="ts">
 import { computed, ref, unref } from "vue";
-import ApplicationLogo from "@components/ApplicationLogo.vue";
 import { useRouter, useRoute } from "vue-router";
 import { Text } from "@utils";
-import { Search } from "@element-plus/icons-vue";
 
 import Header from "./layout/Header.vue";
 import Footer from "./layout/Footer.vue";
@@ -41,7 +39,7 @@ const filterSearch = (queryString: string, cb) => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .list-item {
   @apply mx-5;
   @apply mt-1;
