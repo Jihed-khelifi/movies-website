@@ -1,10 +1,8 @@
 module.exports = {
   important: true,
-  content: [
-      './src/**/*.{vue,js,ts,jsx,tsx,scss,html}'
-  ],
+  content: ["./src/**/*.{vue,js,ts,jsx,tsx,scss,html}"],
   theme: {
-      extend: {},
+    extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

@@ -1,31 +1,29 @@
 <template>
-  <div class="container hero">
+  <div class="">
     <LandingScreen />
   </div>
+  <!-- filer for recomandation  -->
+  <div class=" space-y-4 sm:space-y-10">
+    <div class="flex flex-col sm:flex-row sm:items-end items-center justify-between gap-4">
+      <div class=" space-y-4">
+        <p class="text-amber-400 text-xs font-semibold uppercase leading-5  text-center">Online Streaming</p>
 
-  <div class="container upcoming">
-    <div class="flex-wrapper">
-      <div class="title-wrapper">
-        <p class="section-subtitle">Online Streaming</p>
-
-        <h2 class="h2 section-title">Upcoming Movies</h2>
+        <h2 class="text-3xl text-center">Trending Movies</h2>
       </div>
 
-      <ul class="filter-list">
+      <ul class="flex flex-wrap justify-center items-center gap-3">
         <li>
-          <button class="filter-btn">Movies</button>
+          <el-button class="">All</el-button>
         </li>
-
         <li>
-          <button class="filter-btn">TV Shows</button>
+          <el-button class="">Movies</el-button>
         </li>
-
         <li>
-          <button class="filter-btn">Anime</button>
+          <el-button class="">TV Shows</el-button>
         </li>
       </ul>
     </div>
-    <RecommandedMovies />
+    <TrendingMovies />
 
   </div>
 </template>
@@ -33,16 +31,8 @@
 <script setup lang="ts">
 import { ref, unref, onMounted } from "vue";
 
-import LandingScreen from "../components/home/LandingScreen.vue";
-
-import RecommandedMovies from "@components/Home/RecommandedMovies.vue";
-
 const movies = ref<any>([]);
 
-const scrollFunction = (e: any) => {
-  e.preventDefault();
-  e.target.scrollLeft += e.deltaY;
-};
 
 const data = ref<number[]>([]);
 for (let i = 0; i < 101; i++) {
@@ -59,8 +49,5 @@ const getMovies = async () => {
   );
   const data = await response.json();
   movies.value = data.results;
-  console.log(data);
 };
 </script>
-
-<style scoped></style>

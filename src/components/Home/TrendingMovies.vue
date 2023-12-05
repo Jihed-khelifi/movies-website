@@ -1,7 +1,10 @@
-<template lang="">
-    <ul class="movies-list has-scrollbar">
-        
-      </ul>
+<template>
+    <section>
+        <MovieLister :movies="movies" />
+        <div class="py-5">
+            <el-pagination background layout="prev, pager, next" :total="1000" :pager-count="5" hide-on-single-page />
+        </div>
+    </section>
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
@@ -20,6 +23,6 @@ const getMovies = async () => {
     movies.value = data.results;
 };
 </script>
-<style lang="">
+<style lang="scss">
 
 </style>

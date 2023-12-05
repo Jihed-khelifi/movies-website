@@ -22,7 +22,6 @@
     "baseUrl": "./",
     "paths": {
       "@*": ["src/*"],
-      "@assets/*": ["src/intranet/*"],
       "@components/*": ["src/components/*"],
       "@router/*": ["src/router/*"],
       "@utils/*": ["src/utils/*"],

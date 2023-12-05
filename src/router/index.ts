@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
+import { useAuthStore } from '@store/authStore';
 const router = createRouter({
   history: createWebHistory(`${import.meta.env.BASE_URL}`),
   routes: [
@@ -12,13 +12,13 @@ const router = createRouter({
     {
       path: `/login`,
       name: `Login page`,
-      component: () => import('@views/Login.vue'),
+      component: () => import('@views/Auth.vue'),
       meta: { label: 'Sign in' },
     },
     {
       path: `/register`,
       name: `Register page`,
-      component: () => import('@views/Register.vue'),
+      component: () => import('@views/Auth.vue'),
       meta: { label: 'Join us' },
     },
     {
@@ -74,6 +74,19 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _, next) => {
+
+  const authStore = useAuthStore();
+
+  if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+    next({ name: 'Login page' });
+    return;
+  }
+
+  if ((to.name === 'Login page' || to.name === "Register page"  ) && authStore.isLoggedIn) {
+    next({ name: 'Home page' });
+    return;
+  }
+
   document.title = `${to.meta.label}`;
   next();
 });
