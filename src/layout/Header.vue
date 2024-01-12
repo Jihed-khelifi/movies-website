@@ -53,7 +53,7 @@
           <button>
             <span class=" h-[40px] aspect-square rounded-full  object-cover border-2 bg-slate-100 shadow-md ">
               <img class="object-cover " :src="uri" />
-          </span>
+            </span>
           </button>
           <template #dropdown>
 
@@ -92,7 +92,7 @@
           <button>
             <span class=" h-[40px] aspect-square rounded-full  object-cover border-2 bg-slate-100 shadow-md ">
               <img class="object-cover " :src="uri" />
-          </span>
+            </span>
           </button>
           <template #dropdown>
 
@@ -202,7 +202,7 @@ const bgColor = useBgColor()
 const drawer = ref(false)
 
 const avatar = createAvatar(bottts, {
-    seed: "JIHED"
+  seed: "JIHED"
 });
 
 const uri = avatar.toDataUriSync();
@@ -220,7 +220,7 @@ const redirectTo = () => {
 }
 
 const handleLogout = () => {
-  authStore.setIsLoggedIn(false)
+  authStore.logout()
   router.push({ name: 'Home page' })
 }
 

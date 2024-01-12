@@ -3,12 +3,12 @@
         <h1 class="text-center z-50"><el-text class="text-3xl">Join the community</el-text></h1>
         <el-form ref="formRef" :model="formData" :rules="rules" label-position="top" hide-required-area>
             <div class="flex space-x-3 mt-8">
-                <el-form-item label="First name" prop="firstname" class="flex-1">
-                    <el-input v-model="formData.firstname" name="given-name" autocomplete="on"
+                <el-form-item label="First name" prop="firstName" class="flex-1">
+                    <el-input v-model="formData.firstName" name="given-name" autocomplete="on"
                         placeholder="Enter your first name" clearable size="large" show-word-limit />
                 </el-form-item>
-                <el-form-item label="Last name" prop="lastname" class="flex-1" style="--el-tag-bg-color: red">
-                    <el-input v-model="formData.lastname" name="family-name" autocomplete="on" clearable show-word-limit
+                <el-form-item label="Last name" prop="lastName" class="flex-1" style="--el-tag-bg-color: red">
+                    <el-input v-model="formData.lastName" name="family-name" autocomplete="on" clearable show-word-limit
                         size="large" placeholder="Enter your last name" />
                 </el-form-item>
             </div>
@@ -34,9 +34,21 @@
                     </template>
                 </el-input>
             </el-form-item>
+            <el-form-item label="Confirm Password" prop="confirmPassword">
+                <el-input v-model="formData.confirmPassword" name="confirm-password" autocomplete="on" show-password
+                    clearable show-word-limit size="large" placeholder="Confirm your password">
+                    <template #suffix>
+                        <CarbonPassword />
+                    </template>
+                </el-input>
+            </el-form-item>
         </el-form>
+        <div class="mb-4 w-full flex gap-1 items-center text-red-500" v-if="error">
+            <MaterialSymbolsErrorOutline />
+            <el-text class="text-red-500"> {{ error }}</el-text>
+        </div>
         <div class="auth-methods-divider">
-            <el-button type="primary" class="w-full" size="large" @click="handleLogin(formRef)">Register</el-button>
+            <el-button type="primary" class="w-full" size="large" @click="handleRegister(formRef)">Register</el-button>
             <el-divider><el-text size="small">OR</el-text></el-divider>
             <div class=" text-center">
                 <el-button circle size="large">
@@ -69,7 +81,8 @@ import CarbonPassword from '~icons/carbon/password'
 import LogosGoogleIcon from '~icons/logos/google-icon';
 import { useAuthStore } from "@store/authStore";
 import { useRouter } from "vue-router";
-
+import { Registration } from "./interfaces/Registration";
+import MaterialSymbolsErrorOutline from '~icons/material-symbols/error-outline'
 const authStore = useAuthStore();
 const router = useRouter();
 
@@ -77,32 +90,24 @@ const bgColor = useBgColor()
 
 const loading = ref(false);
 const formRef = ref<Form.Instance>();
-const formData = reactive({
-    tos: false,
-    firstname: "",
-    lastname: "",
+const error = ref<string | null>(null);
+const formData = reactive<Registration>({
+    firstName: "",
+    lastName: "",
     email: "",
-    phone: "",
     gender: "",
     password: "",
+    confirmPassword: ""
 });
 
 const rules: Rules = {
-    firstname: [
+    firstName: [
         { required: true, whitespace: true, message: "Required" },
         { max: 38, message: "Maximum of 38 characters" },
     ],
-    lastname: [
+    lastName: [
         { required: true, whitespace: true, message: "Required" },
         { max: 38, message: "Maximum of 38 characters" },
-    ],
-    phone: [
-        { required: true, whitespace: true, message: "Required" },
-        { max: 20, message: "Maximum of 20 characters" },
-        {
-            message: "Phone number is required",
-            validator: (_: unknown, value: string) => Phone.IsValid(value),
-        },
     ],
     email: [
         { required: true, whitespace: true, message: "Required." },
@@ -112,29 +117,51 @@ const rules: Rules = {
     password: [
         { required: true, whitespace: true, message: "Required." },
         {
-            pattern: /^(?=.{10,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/,
+            pattern: /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/,
             message:
                 "Password should contain at least 1 uppercase, 1 lowercase, 1 alphnumeric character",
         },
     ],
+    confirmPassword: [
+        { required: true, whitespace: true, message: "Required." },
+        {
+            message: "Password does not match",
+            validator: (_: unknown, value: string) => {
+                if (value === formData.password) {
+                    return true
+                }
+                return false
+            },
+        },
+    ],
+    gender: [
+        { message: "Please specify a gender", required: true },
+    ]
 };
 
-const handleLogin = async (formEL: Form.Instance | undefined) => {
-    loading.value = true;
+const handleRegister = async (formEL: Form.Instance | undefined) => {
     try {
-        if (!formEL) return;
+        try {
+            if (!formEL) return;
+            await formEL?.validate();
+        } catch (error) { return; }
 
-        // await formEL.validate();
-        await authStore.setIsLoggedIn(true);
-        router.push({
-            name: "Profile",
-            params: { vanity: "bidin13568" }
-        });
+        loading.value = true;
+        error.value = null;
+        const response = await authStore.register(formData);
+        if (response.status === 201) {
+            router.push({ name: 'Login page' });
+            return;
+        } else if (response.status === 400) {
+            error.value = response.data.message;
+            return;
+        }
     } catch (error) {
         console.log(error);
     } finally {
         loading.value = false;
     }
+
 };
 
 </script>

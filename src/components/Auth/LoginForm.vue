@@ -2,8 +2,8 @@
     <div class="p-5 rounded-xl relative shadow-md" :class="bgColor">
         <h1 class="text-center z-50"><el-text class="text-4xl">Welcome Back</el-text></h1>
         <el-form ref="formRef" :model="formData" :rules="rules" label-position="top" hide-required-area>
-            <el-form-item label="Username" prop="username">
-                <el-input v-model="formData.username" name="username" placeholder="i.e MovieWatcher-123" autocomplete="on"
+            <el-form-item label="Email" prop="email">
+                <el-input v-model="formData.email" name="email" placeholder="i.e example@example.com" autocomplete="on"
                     clearable show-word-limit size="large">
                     <template #suffix>
                         <MaterialSymbolsAlternateEmail />
@@ -53,8 +53,11 @@ import { useAuthStore } from "@store/authStore";
 import { useRouter } from "vue-router";
 import { FormInstance } from "element-plus";
 import { tr } from "element-plus/es/locale";
+import { login } from "@services/auth.service";
+import { useUserStore } from "@store/userStore";
 
-const authStore = useAuthStore();
+const authStore = useAuthStore();   
+const userStore = useUserStore();
 const router = useRouter();
 
 const formRef = ref<Form.Instance>();
@@ -63,7 +66,7 @@ const loading = ref(false);
 const bgColor = useBgColor()
 
 const formData = reactive({
-    username: "",
+    email: "",
     password: "",
 });
 
@@ -83,11 +86,16 @@ const handleLogin = async (formEL: Form.Instance | undefined) => {
         if (!formEL) return;
 
         // await formEL.validate();
-        await authStore.setIsLoggedIn(true);
-        router.push({
-            name: "Profile",
-            params: { vanity: "bidin13568" }
-        });
+        const response = await authStore.login(formData.email ,formData.password);
+        if(response.status === 201){
+            // await userStore.fetchUser();
+            router.push({
+                name: "Profile",
+                params: { vanity: "bidin13568" }
+            });
+        }else{
+            console.log(response);
+        }
     } catch (error) {
         console.log(error);
     } finally {

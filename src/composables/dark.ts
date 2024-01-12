@@ -6,6 +6,6 @@ export const toggleDark = useToggle(isDark);
 
 export const useBgColor = () => {
     return computed(() => {
-        return isDark.value ? "bg-slate-800" : "bg-blue-200";
+        return isDark.value ? "bg-slate-900" : "bg-blue-100";
     });
 }

@@ -7,12 +7,20 @@ export const authHeader = () => {
             'Content-type': 'application/json',
             Authorization: token
         }
-    else return {}
+    else return { 'Content-type': 'application/json', }
 }
 
 const api = axios.create({
-    baseURL: "https://api.github.com",
-    headers: authHeader()
+    baseURL: "http://localhost:5555/api/v1",
 });
+
+api.interceptors.request.use(async config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = token;
+    }
+    return config;
+}
+);
 
 export default api;

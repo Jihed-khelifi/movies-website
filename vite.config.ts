@@ -32,6 +32,7 @@ export default defineConfig({
       { find: '@views', replacement: resolve(__dirname, 'src/views') },
       { find: '@router', replacement: resolve(__dirname, 'src/router') },
       { find: '@utils', replacement: resolve(__dirname, 'src/utils') },
+      { find: '@services', replacement: resolve(__dirname, 'src/services') },
     ],
   },
   plugins: [
