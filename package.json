@@ -17,7 +17,7 @@
     "axios": "^1.6.2",
     "dayjs": "^1.11.9",
     "dotenv": "^16.3.1",
-    "element-plus": "^2.3.9",
+    "element-plus": "^2.5.1",
     "libphonenumber-js": "^1.10.44",
     "lodash-es": "^4.17.21",
     "pinia": "^2.1.7",

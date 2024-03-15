@@ -31,6 +31,9 @@
 <script setup lang="ts">
 import { ref, unref, onMounted } from "vue";
 
+import LandingScreen from "@components/Home/LandingScreen.vue";
+import TrendingMovies from "@components/Home/TrendingMovies.vue";
+
 const movies = ref<any>([]);
 
 
